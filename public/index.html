@@ -1,62 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Biblioteca Musical</title>
+  <title>Music Streaming - Jamendo & Local</title>
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
 
   <link rel="stylesheet" href="css/style.css">
-
-  <link rel="icon" href="images/favicon.png" type="image/x-icon">
+  <script src="js/index.js"></script>
 </head>
-
 <body>
   <div class="container">
     <header>
-      <h1>🎵 Mi Biblioteca Musical</h1>
-      <p>Gestiona tu colección de música</p>
+      <h1>🎵 Music Streaming</h1>
+      <p>Explora millones de canciones gratuitas con Jamendo</p>
     </header>
 
-    <div class="card">
-      <h2>Subir Nueva Canción</h2>
-      <form class="upload-form" id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="song">Archivo de audio *</label>
-          <input type="file" id="song" name="song" accept="audio/*" required />
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="title">Título</label>
-            <input type="text" id="title" name="title" placeholder="Nombre de la canción" />
-          </div>
-
-          <div class="form-group">
-            <label for="artist">Artista</label>
-            <input type="text" id="artist" name="artist" placeholder="Nombre del artista" />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="album">Álbum</label>
-          <input type="text" id="album" name="album" placeholder="Nombre del álbum" />
-        </div>
-
-        <button type="submit">📤 Subir Canción</button>
-        <button type="button" class="secondary sync-button" onclick="syncFiles()">🔄 Sincronizar Archivos
-          Existentes</button>
-      </form>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('explore')">🌐 Explorar Jamendo</button>
+      <button class="tab" onclick="switchTab('local')">💿 Mi Biblioteca</button>
     </div>
 
-    <div class="card">
-      <h2>Biblioteca (🎵 <span id="songCount">0</span> canciones)</h2>
-      <ul class="song-list" id="songList"></ul>
+    <!-- TAB: Explorar Jamendo -->
+    <div id="explore-tab" class="tab-content active">
+      <div class="card">
+        <h2>Buscar Música</h2>
+        <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Buscar canciones, artistas..." />
+          <button onclick="searchJamendo()">🔍 Buscar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Géneros Musicales</h2>
+        <div class="genre-pills" id="genres"></div>
+      </div>
+
+      <div class="card">
+        <h2 id="resultsTitle">Canciones Destacadas</h2>
+        <div id="loading" class="loading" style="display: none;">
+          <div>⏳ Cargando...</div>
+        </div>
+        <div id="jamendoResults" class="song-grid"></div>
+      </div>
+    </div>
+
+    <!-- TAB: Mi Biblioteca Local -->
+    <div id="local-tab" class="tab-content">
+      <div class="card">
+        <h2>Mi Biblioteca Local (🎵 <span id="songCount">0</span> canciones)</h2>
+        <div id="localSongs" class="song-grid"></div>
+      </div>
     </div>
   </div>
 
-  <script src="js/index.js"></script>
+  <!-- Reproductor fijo en la parte inferior -->
+  <div id="playerBar" class="player-bar">
+    <div class="player-content">
+      <img id="playerImage" class="player-image" src="" alt="Album art" />
+      <div class="player-info">
+        <div class="player-title" id="playerTitle"></div>
+        <div class="player-artist" id="playerArtist"></div>
+      </div>
+      <audio id="audioPlayer" controls></audio>
+      <button class="play-button" onclick="closePlayer()">✕</button>
+    </div>
+  </div>
 
 </body>
-
 </html>
