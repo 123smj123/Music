@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mi Música</title>
+</head>
+<body>
+  <h1>Subir canción</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="song" accept="audio/*" required />
+    <button type="submit">Subir</button>
+  </form>
+
+  <h2>Biblioteca</h2>
+  <ul id="list"></ul>
+
+  <script>
+    fetch("/songs")
+      .then(res => res.json())
+      .then(songs => {
+        const list = document.getElementById("list");
+        songs.forEach(song => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            ${song}<br>
+            <audio controls src="/music/${song}"></audio>
+          `;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
