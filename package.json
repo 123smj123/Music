@@ -1,12 +1,14 @@
 {
   "name": "music",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Servidor de música con metadatos",
+  "main": "src/server.js",
   "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["music", "server", "audio"],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
