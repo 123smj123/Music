@@ -1,33 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <title>Mi Música</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Biblioteca Musical</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
 </head>
+
 <body>
-  <h1>Subir canción</h1>
-  <form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="song" accept="audio/*" required />
-    <button type="submit">Subir</button>
-  </form>
+  <div class="container">
+    <header>
+      <h1>🎵 Mi Biblioteca Musical</h1>
+      <p>Gestiona tu colección de música</p>
+    </header>
 
-  <h2>Biblioteca</h2>
-  <ul id="list"></ul>
+    <div class="card">
+      <h2>Subir Nueva Canción</h2>
+      <form class="upload-form" id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="song">Archivo de audio *</label>
+          <input type="file" id="song" name="song" accept="audio/*" required />
+        </div>
 
-  <script>
-    fetch("/songs")
-      .then(res => res.json())
-      .then(songs => {
-        const list = document.getElementById("list");
-        songs.forEach(song => {
-          const li = document.createElement("li");
-          li.innerHTML = `
-            ${song}<br>
-            <audio controls src="/music/${song}"></audio>
-          `;
-          list.appendChild(li);
-        });
-      });
-  </script>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="title">Título</label>
+            <input type="text" id="title" name="title" placeholder="Nombre de la canción" />
+          </div>
+
+          <div class="form-group">
+            <label for="artist">Artista</label>
+            <input type="text" id="artist" name="artist" placeholder="Nombre del artista" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="album">Álbum</label>
+          <input type="text" id="album" name="album" placeholder="Nombre del álbum" />
+        </div>
+
+        <button type="submit">📤 Subir Canción</button>
+        <button type="button" class="secondary sync-button" onclick="syncFiles()">🔄 Sincronizar Archivos
+          Existentes</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Biblioteca (🎵 <span id="songCount">0</span> canciones)</h2>
+      <ul class="song-list" id="songList"></ul>
+    </div>
+  </div>
+
+  <script src="js/index.js"></script>
+
 </body>
+
 </html>

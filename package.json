@@ -1,17 +1,22 @@
 {
   "name": "music",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Servidor de música con metadatos en MySQL",
+  "main": "src/server.js",
   "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
+    "setup": "node src/setup-db.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["music", "server", "audio", "mysql"],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "express": "^5.2.1",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "mysql2": "^3.6.5",
+    "dotenv": "^16.3.1"
   }
 }
