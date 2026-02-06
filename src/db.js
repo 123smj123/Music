@@ -66,7 +66,28 @@ async function initDB() {
         INDEX idx_title (title),
         INDEX idx_artist (artist),
         INDEX idx_album (album)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+      )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `);
+
+     // Crear tabla de playlists
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS playlists (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+     // Crear tabla de relación entre playlists y canciones
+    await connection.query(`  
+      CREATE TABLE IF NOT EXISTS playlist_songs (
+        playlist_id INT,
+        song_id INT,
+        position INT,
+        PRIMARY KEY (playlist_id, song_id),
+        FOREIGN KEY (playlist_id) REFERENCES playlists(id),
+        FOREIGN KEY (song_id) REFERENCES songs(id)
+      );
     `);
 
     console.log("✅ Tabla 'songs' verificada/creada");

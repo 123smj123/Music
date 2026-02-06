@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Music Streaming - Jamendo & Local</title>
   <link rel="icon" href="images/favicon.png" type="image/x-icon">
-
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/index.js"></script>
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -37,7 +37,18 @@
       </div>
 
       <div class="card">
-        <h2 id="resultsTitle">Canciones Destacadas</h2>
+        <div class="card-header">
+          <h2 id="resultsTitle">Canciones Destacadas</h2>
+          <div class="sort-controls">
+            <label for="sortSelect">Ordenar por:</label>
+            <select id="sortSelect" onchange="sortSongs(this.value)">
+              <option value="date">Más recientes</option>
+              <option value="title">Título (A-Z)</option>
+              <option value="artist">Artista (A-Z)</option>
+              <option value="duration">Duración</option>
+            </select>
+          </div>
+        </div>
         <div id="loading" class="loading" style="display: none;">
           <div>⏳ Cargando...</div>
         </div>
@@ -48,7 +59,28 @@
     <!-- TAB: Mi Biblioteca Local -->
     <div id="local-tab" class="tab-content">
       <div class="card">
-        <h2>Mi Biblioteca Local (🎵 <span id="songCount">0</span> canciones)</h2>
+        <h2>Subir Canción</h2>
+        <div class="upload-zone">
+          <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+            <div class="upload-area">
+              <div class="upload-icon">📁</div>
+              <p>Arrastra archivos aquí o haz clic para seleccionar</p>
+              <p class="upload-info">Formatos soportados: MP3, WAV, OGG (máx. 50MB)</p>
+              <input type="file" name="song" accept="audio/*" required />
+            </div>
+            <button type="submit" class="upload-btn">📤 Subir Canción</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Mi Biblioteca (🎵 <span id="songCount">0</span> canciones)</h2>
+          <div class="search-bar local-search">
+            <input type="text" id="localSearchInput" placeholder="Buscar en mi biblioteca..." />
+            <button onclick="searchLocal()">🔍</button>
+          </div>
+        </div>
         <div id="localSongs" class="song-grid"></div>
       </div>
     </div>
@@ -59,13 +91,19 @@
     <div class="player-content">
       <img id="playerImage" class="player-image" src="" alt="Album art" />
       <div class="player-info">
-        <div class="player-title" id="playerTitle"></div>
+        <div class="player-title" id="playerTitle">No hay canción reproduciendo</div>
         <div class="player-artist" id="playerArtist"></div>
       </div>
-      <audio id="audioPlayer" controls></audio>
-      <button class="play-button" onclick="closePlayer()">✕</button>
+      <div class="player-controls">
+        <button class="control-btn" onclick="playPrevious()" title="Anterior (Ctrl + ←)">⏮</button>
+        <audio id="audioPlayer" controls></audio>
+        <button class="control-btn" onclick="playNext()" title="Siguiente (Ctrl + →)">⏭</button>
+      </div>
+      <button class="close-player-btn" onclick="closePlayer()" title="Cerrar reproductor">✕</button>
     </div>
   </div>
 
+  <script src="js/index.js"></script>
 </body>
+
 </html>

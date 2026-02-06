@@ -17,14 +17,29 @@ CREATE TABLE IF NOT EXISTS songs (
   title VARCHAR(255) NOT NULL,
   artist VARCHAR(255) DEFAULT 'Desconocido',
   album VARCHAR(255) DEFAULT '',
-  duration INT DEFAULT NULL COMMENT 'Duración en segundos',
-  size BIGINT DEFAULT 0 COMMENT 'Tamaño en bytes',
+  duration INT DEFAULT NULL,
+  size BIGINT DEFAULT 0,
   upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_title (title),
   INDEX idx_artist (artist),
   INDEX idx_album (album)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS playlists (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS playlist_songs (
+  playlist_id INT,
+  song_id INT,
+  position INT,
+  PRIMARY KEY (playlist_id, song_id),
+  FOREIGN KEY (playlist_id) REFERENCES playlists(id),
+  FOREIGN KEY (song_id) REFERENCES songs(id)
+);
 
 -- Consultas útiles para gestionar desde HeidiSQL:
 

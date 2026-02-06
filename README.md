@@ -1,25 +1,15 @@
-# MUSIC
-
-This is a project made to share song on a public way
-
-## Steps to run
-
-install node
-install npm
-
-install mysql on your computer
-
-`bash
+# 1. Instalar nuevas dependencias
 npm install
-`
 
-fill the .env file
+# 2. Tu .env debe tener:
+# DB_HOST=localhost
+# DB_USER=root
+# DB_PASSWORD=tu_password
+# DB_NAME=music_db
+# JAMENDO_CLIENT_ID=tu_api_key
 
-```dotenv
-DB_HOST=your database host, usually localhost
-DB_USER=the database user
-DB_PASSWORD=the user password
-DB_NAME=the database name
-DB_PORT=mysql port, usually 3306
-PORT=the server port
-```
+# 3. Ejecutar setup (si no lo hiciste)
+npm run setup
+
+# 4. Iniciar servidor
+npm start

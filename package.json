@@ -1,7 +1,7 @@
 {
   "name": "music",
-  "version": "1.0.0",
-  "description": "Servidor de música con metadatos en MySQL y API de Jamendo",
+  "version": "2.0.0",
+  "description": "Servidor de música con metadatos en MySQL, API de Jamendo y funcionalidades avanzadas",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
@@ -9,7 +9,7 @@
     "setup": "node src/setup-db.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["music", "server", "audio", "mysql", "jamendo"],
+  "keywords": ["music", "server", "audio", "mysql", "jamendo", "streaming"],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
@@ -18,6 +18,8 @@
     "multer": "^2.0.2",
     "mysql2": "^3.6.5",
     "dotenv": "^16.3.1",
-    "axios": "^1.6.0"
+    "axios": "^1.6.0",
+    "music-metadata": "^8.1.4",
+    "express-rate-limit": "^7.1.5"
   }
 }

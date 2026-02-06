@@ -9,6 +9,7 @@ body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   padding: 20px;
+  padding-bottom: 120px; /* Espacio para el reproductor fijo */
 }
 
 .container {
@@ -27,6 +28,7 @@ h1 {
   margin-bottom: 10px;
 }
 
+/* Tabs */
 .tabs {
   display: flex;
   gap: 10px;
@@ -54,6 +56,7 @@ h1 {
   color: #667eea;
 }
 
+/* Cards */
 .card {
   background: white;
   border-radius: 12px;
@@ -62,6 +65,46 @@ h1 {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.card-header h2 {
+  margin: 0;
+}
+
+/* Sort controls */
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-controls label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.sort-controls select {
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.sort-controls select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Search bar */
 .search-bar {
   display: flex;
   gap: 10px;
@@ -97,6 +140,12 @@ h1 {
   background: #5568d3;
 }
 
+.local-search {
+  margin-bottom: 0;
+  max-width: 400px;
+}
+
+/* Genre pills */
 .genre-pills {
   display: flex;
   flex-wrap: wrap;
@@ -117,8 +166,79 @@ h1 {
 .genre-pill:hover {
   background: #667eea;
   color: white;
+  transform: translateY(-2px);
 }
 
+/* Upload zone */
+.upload-zone {
+  margin-top: 15px;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.upload-area {
+  border: 3px dashed #e0e0e0;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.upload-area:hover,
+.upload-area.drag-over {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.upload-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.upload-area p {
+  margin: 10px 0;
+  color: #666;
+}
+
+.upload-info {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.upload-area input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload-btn {
+  padding: 12px 24px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: flex-start;
+}
+
+.upload-btn:hover {
+  background: #5568d3;
+}
+
+/* Song grid */
 .song-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -184,13 +304,15 @@ h1 {
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  transition: background 0.3s;
+  transition: all 0.3s;
 }
 
 .play-button:hover {
   background: #5568d3;
+  transform: scale(1.1);
 }
 
+/* Player bar */
 .player-bar {
   position: fixed;
   bottom: 0;
@@ -200,6 +322,7 @@ h1 {
   padding: 15px;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
   display: none;
+  z-index: 1000;
 }
 
 .player-bar.active {
@@ -219,27 +342,84 @@ h1 {
   height: 60px;
   border-radius: 8px;
   object-fit: cover;
+  background: linear-gradient(135deg, #667eea, #764ba2);
 }
 
 .player-info {
   flex: 1;
+  min-width: 150px;
 }
 
 .player-title {
   font-weight: 600;
   margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .player-artist {
   color: #666;
   font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 2;
+  max-width: 600px;
+}
+
+.control-btn {
+  width: 35px;
+  height: 35px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+.control-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: scale(1.1);
 }
 
 audio {
-  flex: 2;
-  max-width: 500px;
+  flex: 1;
+  max-width: 450px;
 }
 
+.close-player-btn {
+  width: 35px;
+  height: 35px;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  font-size: 1.2rem;
+}
+
+.close-player-btn:hover {
+  background: #d32f2f;
+  transform: scale(1.1);
+}
+
+/* Loading & Empty states */
 .loading {
   text-align: center;
   padding: 40px;
@@ -252,6 +432,12 @@ audio {
   color: #666;
 }
 
+.empty-state h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Tab content */
 .tab-content {
   display: none;
 }
@@ -260,17 +446,66 @@ audio {
   display: block;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
+  body {
+    padding: 10px;
+    padding-bottom: 180px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .local-search {
+    max-width: 100%;
+  }
+
   .player-content {
     flex-direction: column;
     gap: 10px;
+    padding: 10px;
+  }
+
+  .player-controls {
+    width: 100%;
+    max-width: 100%;
   }
 
   audio {
     width: 100%;
+    max-width: 100%;
   }
 
   .song-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .upload-area {
+    padding: 30px 20px;
+  }
+
+  .upload-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tab {
+    width: 100%;
+  }
+
+  .song-grid {
+    grid-template-columns: 1fr;
   }
 }
